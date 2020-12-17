@@ -241,7 +241,6 @@ public class Bank {
 					int number=  Integer.parseInt(JOptionPane.showInputDialog("Enter your Number") );
 					c.setContact(number);
 					JOptionPane.showMessageDialog(null,"Your Contact number has been succesfuly changed to " +number);
-					
 				}
 		        writeFile(c);
 		        break;
@@ -253,7 +252,7 @@ public class Bank {
 		FileInputStream fis = new FileInputStream("customer.txt");
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		try {
-
+			
 			int size = 0;
 			while (size >= 0) {
 				try {
@@ -293,12 +292,9 @@ public class Bank {
 				{
 					newListObject.add(customer);
 				}
-
 			}
-
 			exists = false;
 		}
-
 		newListObject.add(object);
 		FileOutputStream fos = new FileOutputStream("customer.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
