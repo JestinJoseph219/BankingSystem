@@ -95,11 +95,13 @@ public class Bank {
 		object.setBalance(0);
 		
 		writeFile(object);
+		
 		JOptionPane.showMessageDialog(null, " Account Created Succefully \n Your Account "
 				+ "Number is :   " + object.getAccnumber ()+" and Your account type is: "+object.getAccountType());
 	}
 	private static void DisplayBalance() throws IOException, ClassNotFoundException
 	{
+	
 		Scanner sc = new Scanner(System.in);
 		Set<Customer>list=new HashSet<>();
 		int accnumber= Integer.parseInt(JOptionPane.showInputDialog("To Display Balance Enter your account number")) ;
@@ -111,6 +113,7 @@ public class Bank {
 			{
 				 JOptionPane.showMessageDialog(null,"Your account balance is "+c.getBalance());
 			}
+			
 		}
 	}
 	private static void Deposit() throws IOException, ClassNotFoundException {
@@ -156,6 +159,7 @@ public class Bank {
 			}
 		}
 	}
+
 	private static void Transfer() throws IOException {
 		Scanner sc = new Scanner(System.in);
 		int accnumber = Integer.parseInt(JOptionPane.showInputDialog("Enter your account number"));
@@ -241,21 +245,19 @@ public class Bank {
 					int number=  Integer.parseInt(JOptionPane.showInputDialog("Enter your Number") );
 					c.setContact(number);
 					JOptionPane.showMessageDialog(null,"Your Contact number has been succesfuly changed to " +number);
+					
 				}
 		        writeFile(c);
 		        break;
 			}
 		}
 	}
-	
-	
-	
 	public static Set readFile() throws IOException {
 		Set<Customer> listCustomer = new HashSet<>();
 		FileInputStream fis = new FileInputStream("customer.txt");
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		try {
-			
+
 			int size = 0;
 			while (size >= 0) {
 				try {
@@ -295,9 +297,12 @@ public class Bank {
 				{
 					newListObject.add(customer);
 				}
+
 			}
+
 			exists = false;
 		}
+
 		newListObject.add(object);
 		FileOutputStream fos = new FileOutputStream("customer.txt");
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -305,5 +310,3 @@ public class Bank {
 		oos.close();
 	}
 }
-
-
