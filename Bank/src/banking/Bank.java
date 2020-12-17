@@ -158,6 +158,60 @@ public class Bank {
 			}
 		}
 	}
+	private static void Transfer() throws IOException {
+		Scanner sc = new Scanner(System.in);
+		int accnumber = Integer.parseInt(JOptionPane.showInputDialog("Enter your account number"));
+		double amount = Double.parseDouble(JOptionPane.showInputDialog("Enter the amount"));
+		int ben = Integer.parseInt(JOptionPane.showInputDialog("Enter your Beneficiary account number"));
+		Set<Customer> list = new HashSet<>();
+		list = (Set<Customer>) readFile();
+		for (Customer c : list) {
+			if (accnumber == c.getAccnumber()) {
+				c.setBalance(c.getBalance() - amount);
+				JOptionPane.showMessageDialog(null, "You have Transfered " + amount + "to " + ben);
+				JOptionPane.showMessageDialog(null, "Your account balance is " + c.getBalance());
+				writeFile(c);
+
+			} else if (ben == c.getAccnumber()) {
+				c.setBalance(c.getBalance() + amount);
+				writeFile(c);
+			}	
+		}
+	}
+	public static void Bill() throws IOException {
+		Scanner sc = new Scanner(System.in);
+		int accnumber= Integer.parseInt(JOptionPane.showInputDialog("Enter your account number")) ;
+		double bill =Double.parseDouble(JOptionPane.showInputDialog("Enter Your Bill Number")) ;
+		double amount =Double.parseDouble(JOptionPane.showInputDialog("Enter Your Bill Amount")) ;
+		Set<Customer>list=new HashSet<>();
+		list= (Set<Customer>)  readFile();
+		for(Customer c: list)
+		{
+			if(accnumber==c.getAccnumber())
+			{
+				 Date today=Calendar.getInstance().getTime();
+			        c.setBalance(c.getBalance()-amount);
+			        JOptionPane.showMessageDialog(null,"You have paid your bill "+amount+ " On "+today);
+			        JOptionPane.showMessageDialog(null,"Your account balance is "+c.getBalance());
+			        writeFile(c);
+			        break;
+			}
+		}	
+	}
+	public static void Details() throws IOException {
+		Scanner sc = new Scanner(System.in);
+		int accnumber= Integer.parseInt(JOptionPane.showInputDialog("Enter your account number to view your details")) ;
+		Set<Customer>list=new HashSet<>();
+		list= (Set<Customer>) readFile();
+		for(Customer c: list)
+		{
+			if(accnumber==c.getAccnumber())
+			{
+			        JOptionPane.showMessageDialog(null,"Name: "+c.getName() +"\n Address: "+c.getAddress()+"\n "
+			        		+ "City: "+c.getCity()+"\n Number: "+c.getContact());
+			}	
+		}
+	}
 	public static Set readFile() throws IOException {
 		Set<Customer> listCustomer = new HashSet<>();
 		FileInputStream fis = new FileInputStream("customer.txt");
