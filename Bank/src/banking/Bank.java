@@ -158,3 +158,61 @@ public class Bank {
 			}
 		}
 	}
+	public static Set readFile() throws IOException {
+		Set<Customer> listCustomer = new HashSet<>();
+		FileInputStream fis = new FileInputStream("customer.txt");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		try {
+
+			int size = 0;
+			while (size >= 0) {
+				try {
+					listCustomer = (Set<Customer>) ois.readObject();
+					if (listCustomer == null)
+					{
+						ois.close();
+						break;
+					}
+					size = listCustomer.size();
+				} 
+				catch (Exception ex) {
+				}
+				size--;
+			}
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			ois.close();
+		}
+		return listCustomer;
+	}
+	public static void writeFile(Customer object) throws IOException {
+		Set<Customer> list = new HashSet<>();
+		Set<Customer> newListObject = new HashSet<>();
+		boolean exists = new File("customer.txt").exists();
+		while (exists) {
+			list = (Set<Customer>) readFile();
+			for (Customer customer : list)
+			{
+				if (object.getAccnumber() == customer.getAccnumber())
+				{
+					newListObject.remove(customer);
+					newListObject.add(object);
+				}
+				else
+				{
+					newListObject.add(customer);
+				}
+
+			}
+
+			exists = false;
+		}
+
+		newListObject.add(object);
+		FileOutputStream fos = new FileOutputStream("customer.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(newListObject);
+		oos.close();
+	}
+}
