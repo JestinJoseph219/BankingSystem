@@ -248,6 +248,8 @@ public class Bank {
 		}
 	}
 	
+	
+	
 	public static Set readFile() throws IOException {
 		Set<Customer> listCustomer = new HashSet<>();
 		FileInputStream fis = new FileInputStream("customer.txt");
