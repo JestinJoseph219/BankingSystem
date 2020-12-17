@@ -98,4 +98,63 @@ public class Bank {
 		JOptionPane.showMessageDialog(null, " Account Created Succefully \n Your Account "
 				+ "Number is :   " + object.getAccnumber ()+" and Your account type is: "+object.getAccountType());
 	}
+	private static void DisplayBalance() throws IOException, ClassNotFoundException
+	{
+	
+		Scanner sc = new Scanner(System.in);
+		Set<Customer>list=new HashSet<>();
+		int accnumber= Integer.parseInt(JOptionPane.showInputDialog("To Display Balance Enter your account number")) ;
+		
+		list=  (Set<Customer>)readFile();
+		for(Customer c: list)
+		{
+			if(accnumber==c.getAccnumber())
+			{
+				 JOptionPane.showMessageDialog(null,"Your account balance is "+c.getBalance());
+			}
+			
+		}
+	}
+	private static void Deposit() throws IOException, ClassNotFoundException {
+		Scanner sc = new Scanner(System.in);
+		int accnumber = Integer.parseInt(JOptionPane.showInputDialog("Enter your account number to deposit money")) ;
+		double amount =Double.parseDouble(JOptionPane.showInputDialog("Enter the amount you want to deposit")) ;
+		Set<Customer>list=new HashSet<>();
+		list= (Set<Customer>) readFile();
+		for(Customer c: list)
+		{
+			if(accnumber==c.getAccnumber())
+			{
+				c.setBalance(amount+c.getBalance());
+		        JOptionPane.showMessageDialog(null,"Your account balance is "+c.getBalance());
+		        writeFile(c);
+		        break;
+			}
+		}
 }
+	private static void Withdraw() throws IOException, ClassNotFoundException {
+		Scanner sc = new Scanner(System.in);
+		int accnumber= Integer.parseInt(JOptionPane.showInputDialog("Enter your account number to withdraw money")) ;
+		double amount =Double.parseDouble(JOptionPane.showInputDialog("Enter the amount you want to withdraw")) ;
+		Set<Customer>list=new HashSet<>();
+		list= (Set<Customer>) readFile();
+		for(Customer c: list)
+		{
+			if(accnumber==c.getAccnumber())
+			{
+				float fee = (float) (amount*0.0003);
+				float remaining = (float) (c.getBalance()-amount-fee);
+				if(remaining>0)
+				{
+			        c.setBalance(c.getBalance()-amount-fee);
+			        JOptionPane.showMessageDialog(null,"You have withdrawn "+amount);
+			        JOptionPane.showMessageDialog(null,"You have charged a fee of "+fee);
+			        JOptionPane.showMessageDialog(null,"Your account balance is "+c.getBalance());
+			        writeFile(c);
+			        break;
+				}
+				else
+					JOptionPane.showMessageDialog(null,"Insuficiant Balance");
+			}
+		}
+	}
