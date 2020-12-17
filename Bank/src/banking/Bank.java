@@ -98,6 +98,7 @@ public class Bank {
 		JOptionPane.showMessageDialog(null, " Account Created Succefully \n Your Account "
 				+ "Number is :   " + object.getAccnumber ()+" and Your account type is: "+object.getAccountType());
 	}
+	
 	private static void DisplayBalance() throws IOException, ClassNotFoundException
 	{
 	
